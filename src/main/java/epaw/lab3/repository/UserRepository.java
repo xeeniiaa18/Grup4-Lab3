@@ -70,20 +70,20 @@ public class UserRepository extends BaseRepository {
     }
 
     public void save(User user) {
-        String query = "INSERT INTO users (username, password, picture) VALUES (?, ?, ?)";
+        String query = "INSERT INTO users ( username,  password,  picture,   email, phone,  firstName,  lastName,  dateOfBirth,   gender,  title,  allergies,   foodPreferences) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement statement = db.prepareStatement(query)) {
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getPicture());
-            statement.setString(3, user.getEmail());
-			statement.setString(4, user.getPhone());
-			statement.setString(5, user.getFirstName());
-			statement.setString(6, user.getLastName());
-			statement.setString(7, user.getDateOfBirth());
-			statement.setString(8, user.getGender());
-			statement.setString(9, user.getTitle());
-			statement.setString(10, user.getAllergies());
-			statement.setString(11, user.getFoodPreferences());
+            statement.setString(4, user.getEmail());
+			statement.setString(5, user.getPhone());
+			statement.setString(6, user.getFirstName());
+			statement.setString(7, user.getLastName());
+			statement.setString(8, user.getDateOfBirth());
+			statement.setString(9, user.getGender());
+			statement.setString(10, user.getTitle());
+			statement.setString(11, user.getAllergies());
+			statement.setString(12, user.getFoodPreferences());
 			statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -91,7 +91,7 @@ public class UserRepository extends BaseRepository {
     }
 
     public Optional<User> findByUsername(String username) {
-        String query = "SELECT id, username, password, picture FROM users WHERE username = ?";
+        String query = "SELECT id, username, password, picture, email, phone,  firstName,  lastName,  dateOfBirth,   gender,  title,  allergies,   foodPreferences FROM users WHERE username = ?";
         try (PreparedStatement statement = db.prepareStatement(query)) {
             statement.setString(1, username);
             ResultSet rs = statement.executeQuery();
@@ -101,7 +101,7 @@ public class UserRepository extends BaseRepository {
                 user.setUsername(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
                 user.setPicture(rs.getString("picture"));
-                 user.setEmail(rs.getString("email"));
+                user.setEmail(rs.getString("email"));
                 user.setPhone(rs.getString("phone"));
                 user.setFirstName(rs.getString("firstName"));
                 user.setLastName(rs.getString("lastName"));
