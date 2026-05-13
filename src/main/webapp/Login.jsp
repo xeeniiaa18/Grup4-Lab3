@@ -14,7 +14,6 @@
 		<input type="password" class="w3-input w3-border w3-light-grey" 
 			id="password" name="password" required
 			pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$"
-			value="${user.password}"
 			title="Minimum 8 characters, including uppercase, numbers, and a special character (@#$%^&*)." />
 	</div>
 
