@@ -2,6 +2,7 @@ package epaw.lab3.service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import epaw.lab3.model.User;
 import epaw.lab3.repository.UserRepository;
@@ -83,9 +84,7 @@ public class UserService {
         }
         
         String phone = user.getPhone();
-        if (phone == null || phone.trim().isEmpty()) {
-            errors.put("phone", "Phone cannot be empty.");
-        }  else if (!phone.matches(PHONE_REGEX)) {
+        if (phone != null && !phone.trim().isEmpty() && !phone.matches(PHONE_REGEX)) {
             errors.put("phone", "Invalid phone number format.");
         }
 
@@ -101,6 +100,14 @@ public class UserService {
                 }
             } catch (DateTimeParseException e) {
                 errors.put("dateOfBirth", "Invalid date format. Please use YYYY-MM-DD.");
+            }
+        }
+
+        String gender = user.getGender();
+        if (gender != null && !gender.trim().isEmpty()) {
+            Set<String> validGenders = Set.of("he/him", "she/her", "they/them", "other", "prefer not to say");
+            if (!validGenders.contains(gender.trim())) {
+                errors.put("gender", "Invalid gender selection.");
             }
         }
 
