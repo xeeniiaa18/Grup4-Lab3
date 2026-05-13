@@ -23,8 +23,8 @@ public class UserRepository extends BaseRepository {
     }
 
     public boolean existsByUsername(String username) {
-        String query = "SELECT COUNT(*) FROM users WHERE name = ?";
-        try (PreparedStatement statement = db.prepareStatement(query)) {
+		String query = "SELECT COUNT(*) FROM users WHERE username = ?";
+		try (PreparedStatement statement = db.prepareStatement(query)) {
             statement.setString(1, username);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
@@ -34,12 +34,27 @@ public class UserRepository extends BaseRepository {
             e.printStackTrace();
         }
         return false;
-    }
+	}
+
+    
+	public boolean existsByEmail(String email) {
+		String query = "SELECT COUNT(*) FROM users WHERE email = ?";
+		try (PreparedStatement statement = db.prepareStatement(query)) {
+            statement.setString(1, email);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+	}
 
     public boolean checkLogin(User user) {
-        String query = "SELECT id, picture from users where name=? AND password=?";
+        String query = "SELECT id, picture from users where username=? AND password=?";
         try (PreparedStatement statement = db.prepareStatement(query)) {
-            statement.setString(1, user.getName());
+            statement.setString(1, user.getUsername());
             statement.setString(2, user.getPassword());
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
@@ -55,28 +70,46 @@ public class UserRepository extends BaseRepository {
     }
 
     public void save(User user) {
-        String query = "INSERT INTO users (name, password, picture) VALUES (?, ?, ?)";
+        String query = "INSERT INTO users (username, password, picture) VALUES (?, ?, ?)";
         try (PreparedStatement statement = db.prepareStatement(query)) {
-            statement.setString(1, user.getName());
+            statement.setString(1, user.getUsername());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getPicture());
-            statement.executeUpdate();
+            statement.setString(3, user.getEmail());
+			statement.setString(4, user.getPhone());
+			statement.setString(5, user.getFirstName());
+			statement.setString(6, user.getLastName());
+			statement.setString(7, user.getDateOfBirth());
+			statement.setString(8, user.getGender());
+			statement.setString(9, user.getTitle());
+			statement.setString(10, user.getAllergies());
+			statement.setString(11, user.getFoodPreferences());
+			statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public Optional<User> findByName(String name) {
-        String query = "SELECT id, name, password, picture FROM users WHERE name = ?";
+    public Optional<User> findByUsername(String username) {
+        String query = "SELECT id, username, password, picture FROM users WHERE username = ?";
         try (PreparedStatement statement = db.prepareStatement(query)) {
-            statement.setString(1, name);
+            statement.setString(1, username);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 User user = new User();
                 user.setId(rs.getInt("id"));
-                user.setName(rs.getString("name"));
+                user.setUsername(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
                 user.setPicture(rs.getString("picture"));
+                 user.setEmail(rs.getString("email"));
+                user.setPhone(rs.getString("phone"));
+                user.setFirstName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setDateOfBirth(rs.getString("dateOfBirth"));
+                user.setGender(rs.getString("gender"));
+                user.setTitle(rs.getString("title"));
+                user.setAllergies(rs.getString("allergies"));
+                user.setFoodPreferences(rs.getString("foodPreferences"));
                 return Optional.of(user);
             }
         } catch (SQLException e) {

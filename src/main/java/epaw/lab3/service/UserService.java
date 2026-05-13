@@ -11,6 +11,9 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeParseException;
 
 public class UserService {
 
@@ -29,17 +32,39 @@ public class UserService {
     }
 
     private static final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*]).{8,}$";
+    
+    private static final String EMAIL_REGEX = 
+    "^[A-Za-z0-9+_.-]+@([A-Za-z0-9.-]+\\.[A-Za-z]{2,})$";
+
+    private static final String PHONE_REGEX = 
+    "^\\+?[1-9]\\d{7,14}$"; // E.164 format, allowing international phone numbers (change it from sem1)
+
 
     public Map<String, String> validate(User user) {
         Map<String, String> errors = new HashMap<>();
 
-        String name = user.getName();
-        if (name == null || name.trim().isEmpty()) {
-            errors.put("name", "Username cannot be empty.");
-        } else if (name.length() < 5 || name.length() > 20) {
-            errors.put("name", "Username must be between 5 and 20 characters.");
-        } else if (userRepository.existsByUsername(name)) {
-            errors.put("name", "Username already exists.");
+        String firstName = user.getFirstName();
+        if (firstName == null || firstName.trim().isEmpty()) {
+            errors.put("firstName", "First name cannot be empty.");
+        }
+        else if (firstName.length() < 2 || firstName.length() > 50) {
+            errors.put("firstName", "First name must be between 2 and 50 characters.");
+        }
+
+        String lastName = user.getLastName();
+        if (lastName == null || lastName.trim().isEmpty()) {
+            errors.put("lastName", "Last name cannot be empty.");
+        }else if (lastName.length() < 2 || lastName.length() > 50) {
+            errors.put("lastName", "Last name must be between 2 and 50 characters.");
+        }
+
+        String username = user.getUsername();
+        if (username == null || username.trim().isEmpty()) {
+            errors.put("username", "Username cannot be empty.");
+        } else if (username.length() < 5 || username.length() > 20) {
+            errors.put("username", "Username must be between 5 and 20 characters.");
+        } else if (userRepository.existsByUsername(username)) {
+            errors.put("username", "Username already exists.");
         }
 
         String password = user.getPassword();
@@ -47,6 +72,43 @@ public class UserService {
             errors.put("password",
                     "Minimum 8 characters, including uppercase, numbers, and a special character (@#$%^&*).");
         }
+
+         String email = user.getEmail();
+        if (email == null || email.trim().isEmpty()) {
+            errors.put("email", "Email cannot be empty.");
+        } else if (userRepository.existsByEmail(email)) {
+            errors.put("email", "Email already exists.");
+        } else if (!email.matches(EMAIL_REGEX)) {
+            errors.put("email", "Invalid email format.");
+        }
+        
+        String phone = user.getPhone();
+        if (phone == null || phone.trim().isEmpty()) {
+            errors.put("phone", "Phone cannot be empty.");
+        }  else if (!phone.matches(PHONE_REGEX)) {
+            errors.put("phone", "Invalid phone number format.");
+        }
+
+        String dateOfBirth = user.getDateOfBirth();
+        if (dateOfBirth == null || dateOfBirth.trim().isEmpty()) {
+            errors.put("dateOfBirth", "Date of birth cannot be empty.");
+        } else{
+            try{
+                LocalDate dob = LocalDate.parse(dateOfBirth);
+                int age= Period.between(dob, LocalDate.now()).getYears();
+                if(age < 16){
+                    errors.put("dateOfBirth", "User must be at least 16 years old.");
+                }
+            } catch (DateTimeParseException e) {
+                errors.put("dateOfBirth", "Invalid date format. Please use YYYY-MM-DD.");
+            }
+        }
+
+        String allergies = user.getAllergies();
+        if (allergies.length() > 200) {
+            errors.put("allergies", "Allergies must not exceed 200 characters.");
+        }
+
 
         return errors;
     }
@@ -62,7 +124,7 @@ public class UserService {
     public Map<String, String> login(User user) {
         Map<String, String> errors = new HashMap<>();
         if (!userRepository.checkLogin(user)) {
-            errors.put("password", "The combination of name and password does not match in our dataabase");
+            errors.put("password", "The combination of username and password does not match in our dataabase");
         }
         return errors;
     }
