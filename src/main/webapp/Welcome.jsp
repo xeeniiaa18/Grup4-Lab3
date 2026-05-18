@@ -89,7 +89,7 @@
             </p>
 
             <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                <a href="NewPost" class="menu" style="text-decoration:none;">
+                <a href="Post" class="menu" style="text-decoration:none;">
                     <div style="background:linear-gradient(135deg,#fff4eb,#fde8d0); border:1.5px solid rgba(224,123,57,0.25); border-radius:12px; padding:12px 18px; color:var(--orange); font-size:14px; font-weight:500;">
                         ✍️ Share a recipe
                     </div>
