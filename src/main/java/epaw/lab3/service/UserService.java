@@ -136,6 +136,14 @@ public class UserService {
         return errors;
     }
 
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username).orElse(null);
+    }
+
+    public void updateProfile(User user) {
+        userRepository.update(user);
+    }
+
     public String saveProfilePicture(Part filePart, String username) {
         if (filePart == null || filePart.getSize() <= 0) {
             return null;

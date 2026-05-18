@@ -46,8 +46,21 @@ public class Login extends HttpServlet {
 
 		Map<String, String> errors = userService.login(user);
 		if (errors.isEmpty()) {
+			User fullUser = userService.getUserByUsername(user.getUsername());
+			if (fullUser == null) {
+				fullUser = user;
+				fullUser.setRole("user");
+			}
+			else{
+				if ("admin".equals(fullUser.getUsername())) {
+					fullUser.setRole("admin");
+				} else {
+					fullUser.setRole("user");
+				}
+			}
+		
 			HttpSession session = request.getSession();
-			session.setAttribute("user", user);
+			session.setAttribute("user", fullUser);
 			request.getRequestDispatcher("Welcome.jsp").forward(request, response);
 		} else {
 			user.setPassword("");

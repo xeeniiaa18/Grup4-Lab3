@@ -11,5 +11,7 @@ CREATE TABLE users (
   gender VARCHAR(20),
   title VARCHAR(20),
   allergies VARCHAR(500),
-  foodPreferences VARCHAR(500)
+  foodPreferences VARCHAR(500),
+  bio VARCHAR(500),
+  verified boolean
 );

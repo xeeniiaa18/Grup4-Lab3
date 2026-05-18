@@ -91,7 +91,7 @@ public class UserRepository extends BaseRepository {
     }
 
     public Optional<User> findByUsername(String username) {
-        String query = "SELECT id, username, password, picture, email, phone,  firstName,  lastName,  dateOfBirth,   gender,  title,  allergies,   foodPreferences FROM users WHERE username = ?";
+        String query = "SELECT id, username, password, picture, email, phone,  firstName,  lastName,  dateOfBirth,   gender,  title,  allergies,   foodPreferences, bio FROM users WHERE username = ?";
         try (PreparedStatement statement = db.prepareStatement(query)) {
             statement.setString(1, username);
             ResultSet rs = statement.executeQuery();
@@ -110,11 +110,27 @@ public class UserRepository extends BaseRepository {
                 user.setTitle(rs.getString("title"));
                 user.setAllergies(rs.getString("allergies"));
                 user.setFoodPreferences(rs.getString("foodPreferences"));
+                user.setBio(rs.getString("bio"));
                 return Optional.of(user);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return Optional.empty();
+    }
+
+    public void update(User user) {
+        String query = "UPDATE users SET picture=?, phone=?, bio=?,allergies=?, foodPreferences=? WHERE id=?";
+        try (PreparedStatement statement = db.prepareStatement(query)) {
+            statement.setString(1, user.getPicture());
+            statement.setString(2, user.getPhone());
+            statement.setString(3, user.getBio());
+            statement.setString(4, user.getAllergies());
+            statement.setString(5, user.getFoodPreferences());
+            statement.setInt(6, user.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

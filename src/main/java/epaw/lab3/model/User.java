@@ -19,7 +19,9 @@ public class User implements Serializable {
 	private String title;
 	private String allergies;
 	private String foodPreferences;
-	
+	private String role;
+	private boolean verified;
+	private String bio;
 	
 	public User() {
 		super();
@@ -114,5 +116,24 @@ public class User implements Serializable {
 	}
 	public void setFoodPreferences(String foodPreferences) {
 		this.foodPreferences = foodPreferences;
+	}
+
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	public boolean isVerified() {
+		return verified;
+	}
+	public void setVerified(boolean verified) {
+		this.verified = verified;
+	}
+	public String getBio() {
+		return bio;
+	}
+	public void setBio(String bio) {
+		this.bio = bio;
 	}
 }
