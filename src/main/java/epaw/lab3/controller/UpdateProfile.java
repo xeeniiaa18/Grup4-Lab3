@@ -38,10 +38,11 @@ public class UpdateProfile extends HttpServlet {
         user.setPhone(request.getParameter("phone"));
         user.setAllergies(request.getParameter("allergies"));
         user.setPicture(request.getParameter("picture"));
-
         user.setTitle(request.getParameter("title"));
         String[] prefs = request.getParameterValues("foodPreferences");
         user.setFoodPreferences(prefs != null ? String.join(",", prefs) : "");
+        
+        
         System.out.println("=== DEBUG ===");
         System.out.println("user.getId() = " + user.getId());
         System.out.println("user.getBio() = " + user.getBio());

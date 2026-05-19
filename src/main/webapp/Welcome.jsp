@@ -106,10 +106,10 @@
                 </a>
             </div>
 
-            <!-- Verification nudge for unverified users -->
+        
             <c:if test="${not user.verified}">
                 <p style="margin-top:16px; font-size:13px; color:var(--muted); background:#fafafa; border:1px solid #f0e8df; border-radius:10px; padding:10px 14px;">
-                    💡 Your account is not verified yet. An administrator will review your profile — once approved you'll get a ✅ badge!
+                    💡 Your account is not verified yet. An administrator will review your profile, once approved you'll get a ✅ badge!
                 </p>
             </c:if>
         </c:if>

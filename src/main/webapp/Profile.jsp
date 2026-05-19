@@ -23,7 +23,7 @@
                 </div>
             </c:otherwise>
         </c:choose>
-        <h3 style="margin:12px 0 4px; color:var(--warm-brown); font-family:'Playfair Display',serif;">
+        <h3 style="margin:12px 0 4px; color:var(--warm-brown);">
             <c:if test="${not empty user.title}">${user.title} </c:if>
             ${user.firstName} ${user.lastName}
             <c:if test="${user.verified}">
@@ -176,7 +176,7 @@
         </div>
         </c:if>
 
-    </div><!-- end two columns -->
+    </div>
 
 </div>
 
