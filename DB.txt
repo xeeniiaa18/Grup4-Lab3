@@ -9,9 +9,10 @@ CREATE TABLE users (
   lastName VARCHAR(50) NOT NULL,
   dateOfBirth DATE NOT NULL,
   gender VARCHAR(20),
-  title VARCHAR(20),
+  title VARCHAR(50),
   allergies VARCHAR(500),
   foodPreferences VARCHAR(500),
   bio VARCHAR(500),
-  verified boolean
+  role VARCHAR(20) DEFAULT 'user',
+  verified boolean DEFAULT 0
 );

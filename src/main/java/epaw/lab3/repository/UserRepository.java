@@ -91,7 +91,7 @@ public class UserRepository extends BaseRepository {
     }
 
     public Optional<User> findByUsername(String username) {
-        String query = "SELECT id, username, password, picture, email, phone,  firstName,  lastName,  dateOfBirth,   gender,  title,  allergies,   foodPreferences, bio FROM users WHERE username = ?";
+        String query = "SELECT id, username, password, picture, email, phone,  firstName,  lastName,  dateOfBirth,   gender,  title,  allergies,   foodPreferences, bio, role, verified FROM users WHERE username = ?";
         try (PreparedStatement statement = db.prepareStatement(query)) {
             statement.setString(1, username);
             ResultSet rs = statement.executeQuery();
@@ -111,6 +111,8 @@ public class UserRepository extends BaseRepository {
                 user.setAllergies(rs.getString("allergies"));
                 user.setFoodPreferences(rs.getString("foodPreferences"));
                 user.setBio(rs.getString("bio"));
+                user.setRole(rs.getString("role"));
+                user.setVerified(rs.getBoolean("verified"));
                 return Optional.of(user);
             }
         } catch (SQLException e) {
@@ -120,14 +122,15 @@ public class UserRepository extends BaseRepository {
     }
 
     public void update(User user) {
-        String query = "UPDATE users SET picture=?, phone=?, bio=?,allergies=?, foodPreferences=? WHERE id=?";
+        String query = "UPDATE users SET picture=?, phone=?, bio=?,allergies=?, foodPreferences=?, title=? WHERE id=?";
         try (PreparedStatement statement = db.prepareStatement(query)) {
             statement.setString(1, user.getPicture());
             statement.setString(2, user.getPhone());
             statement.setString(3, user.getBio());
             statement.setString(4, user.getAllergies());
             statement.setString(5, user.getFoodPreferences());
-            statement.setInt(6, user.getId());
+            statement.setString(6, user.getTitle());
+            statement.setString(7, user.getUsername());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

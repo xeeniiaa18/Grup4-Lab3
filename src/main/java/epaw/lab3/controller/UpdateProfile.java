@@ -39,15 +39,22 @@ public class UpdateProfile extends HttpServlet {
         user.setAllergies(request.getParameter("allergies"));
         user.setPicture(request.getParameter("picture"));
 
-        // Multiple checkboxes → join as comma-separated string
+        user.setTitle(request.getParameter("title"));
         String[] prefs = request.getParameterValues("foodPreferences");
         user.setFoodPreferences(prefs != null ? String.join(",", prefs) : "");
-
+        System.out.println("=== DEBUG ===");
+        System.out.println("user.getId() = " + user.getId());
+        System.out.println("user.getBio() = " + user.getBio());
+        System.out.println("user.getTitle() = " + user.getTitle());
+       
         // Save to DB
         userService.updateProfile(user);
 
+        User refreshed = userService.getUserByUsername(user.getUsername());
+
         // Update session with new data
-        session.setAttribute("user", user);
+        session.setAttribute("user", refreshed);
+        request.setAttribute("updateSuccess", true);
 
         request.getRequestDispatcher("Profile.jsp").forward(request, response);
     }

@@ -109,7 +109,12 @@
         <c:if test="${user.role != 'admin'}">
         <div style="flex:1; padding:20px 24px;">
             <p style="font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:14px; font-weight:600;">✏️ Edit profile</p>
-
+            <c:if test="${updateSuccess}">
+                <div style="background:#f0faf5; border:1px solid rgba(61,122,90,0.3); border-radius:10px; 
+                            padding:10px 14px; margin-bottom:14px; font-size:13px; color:var(--green);">
+                    ✅ Profile updated successfully!
+                </div>
+            </c:if>
             <form action="UpdateProfile" method="post">
 
                 <label style="font-size:12px; color:var(--muted); display:block; margin-bottom:4px;">Bio</label>
@@ -132,6 +137,20 @@
                        placeholder="https://…"
                        value="${user.picture}" style="font-size:13px; margin-bottom:12px;">
 
+
+                <label style="font-size:12px; color:var(--muted); display:block; margin-bottom:4px;">Title</label>
+                <select name="title" class="w3-select w3-border w3-round"
+                        style="font-size:13px; margin-bottom:12px; color:var(--warm-brown);">
+                    <option value="">— None —</option>
+                    <option value="👨‍🍳 Chef"         ${user.title == '👨‍🍳 Chef'         ? 'selected' : ''}>👨‍🍳 Chef</option>
+                    <option value="🍴 Foodie"        ${user.title == '🍴 Foodie'        ? 'selected' : ''}>🍴 Foodie</option>
+                    <option value="🧑‍🍳 Home Cook"   ${user.title == '🧑‍🍳 Home Cook'   ? 'selected' : ''}>🧑‍🍳 Home Cook</option>
+                    <option value="📝 Food Critic"   ${user.title == '📝 Food Critic'   ? 'selected' : ''}>📝 Food Critic</option>
+                    <option value="🌱 Nutritionist"  ${user.title == '🌱 Nutritionist'  ? 'selected' : ''}>🌱 Nutritionist</option>
+                    <option value="🎂 Pastry Chef"   ${user.title == '🎂 Pastry Chef'   ? 'selected' : ''}>🎂 Pastry Chef</option>
+                    <option value="🍷 Sommelier"     ${user.title == '🍷 Sommelier'     ? 'selected' : ''}>🍷 Sommelier</option>
+                    <option value="📸 Food Blogger"  ${user.title == '📸 Food Blogger'  ? 'selected' : ''}>📸 Food Blogger</option>
+                </select>
                 <!-- Food preferences multi-select -->
                 <label style="font-size:12px; color:var(--muted); display:block; margin-bottom:8px;">Food preferences</label>
                 <div style="display:flex; flex-wrap:wrap; gap:7px; margin-bottom:16px;" id="foodPrefGrid">

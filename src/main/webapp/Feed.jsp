@@ -11,9 +11,23 @@
         <p><strong>@chef_xenia</strong> · 30m ago</p> 
         <h4>Delicious Vegan Lasagna 🍆🍅</h4>
         <p>Recipe coming soon! Can't wait to share this one with you all! #vegan #lasagna #foodie</p>
+        <c:choose>
+            <c:when test="${not empty user and user.role=='admin'}">
         <button class="w3-button w3-theme w3-small">❤️ Like</button>
         <button class="w3-button w3-theme w3-small">💬 Comment</button>
         <button class="w3-button w3-theme w3-small">🔗 Share</button>
+        <button class="w3-button w3-theme w3-small">🗑️ Delete</button>
+        </c:when>
+            <c:when test="${not empty user}">
+        <button class="w3-button w3-theme w3-small">❤️ Like</button>
+        <button class="w3-button w3-theme w3-small">💬 Comment</button>
+        <button class="w3-button w3-theme w3-small">🔗 Share</button>
+        </c:when>
+            <c:otherwise>
+        <p>Please <a href="Login" class="menu">login</a> or 
+                    <a href="Register" class="menu">register</a> to interact with posts.</p>
+            </c:otherwise>
+        </c:choose>
     </div>
 
     <div class="w3-card w3-padding w3-margin-bottom w3-light-grey">
@@ -21,9 +35,23 @@
         <h4>Delicious Mediterranean Salad 🥗</h4>
         <p>Best recipe for a healthy and delicious salad!</p>
         <p>Recipe: <a href="#">View Recipe</a></p>
+        <c:choose>
+            <c:when test="${not empty user and user.role=='admin'}">
         <button class="w3-button w3-theme w3-small">❤️ Like</button>
         <button class="w3-button w3-theme w3-small">💬 Comment</button>
         <button class="w3-button w3-theme w3-small">🔗 Share</button>
+        <button class="w3-button w3-theme w3-small">🗑️ Delete</button>
+        </c:when>
+            <c:when test="${not empty user}">
+        <button class="w3-button w3-theme w3-small">❤️ Like</button>
+        <button class="w3-button w3-theme w3-small">💬 Comment</button>
+        <button class="w3-button w3-theme w3-small">🔗 Share</button>
+        </c:when>
+            <c:otherwise>
+        <p>Please <a href="Login" class="menu">login</a> or 
+                    <a href="Register" class="menu">register</a> to interact with posts.</p>
+            </c:otherwise>
+        </c:choose>
     </div>
 
       <div class="w3-card w3-padding w3-margin-bottom w3-light-grey">
@@ -41,9 +69,23 @@
     </ul>
 
     <p>Fluffy homemade pancakes perfect for breakfast!</p>
+        <c:choose>
+            <c:when test="${not empty user and user.role=='admin'}">
         <button class="w3-button w3-theme w3-small">❤️ Like</button>
         <button class="w3-button w3-theme w3-small">💬 Comment</button>
         <button class="w3-button w3-theme w3-small">🔗 Share</button>
+        <button class="w3-button w3-theme w3-small">🗑️ Delete</button>
+        </c:when>
+            <c:when test="${not empty user}">
+        <button class="w3-button w3-theme w3-small">❤️ Like</button>
+        <button class="w3-button w3-theme w3-small">💬 Comment</button>
+        <button class="w3-button w3-theme w3-small">🔗 Share</button>
+        </c:when>
+            <c:otherwise>
+        <p>Please <a href="Login" class="menu">login</a> or 
+                    <a href="Register" class="menu">register</a> to interact with posts.</p>
+            </c:otherwise>
+        </c:choose>
     </div>
 
     <div class="w3-card w3-padding w3-margin-bottom w3-light-grey">
@@ -57,9 +99,23 @@
 
     <p><strong>Rating:</strong> ⭐⭐⭐⭐⭐</p>
 
-    <button class="w3-button w3-theme w3-small">❤️ Like</button>
-    <button class="w3-button w3-theme w3-small">💬 Comment</button>
-    <button class="w3-button w3-theme w3-small">🔗 Share</button>
+    <c:choose>
+        <c:when test="${not empty user and user.role=='admin'}">
+        <button class="w3-button w3-theme w3-small">❤️ Like</button>
+        <button class="w3-button w3-theme w3-small">💬 Comment</button>
+        <button class="w3-button w3-theme w3-small">🔗 Share</button>
+        <button class="w3-button w3-theme w3-small">🗑️ Delete</button>
+        </c:when>
+        <c:when test="${not empty user}">
+        <button class="w3-button w3-theme w3-small">❤️ Like</button>
+        <button class="w3-button w3-theme w3-small">💬 Comment</button>
+        <button class="w3-button w3-theme w3-small">🔗 Share</button>
+        </c:when>
+            <c:otherwise>
+        <p>Please <a href="Login" class="menu">login</a> or 
+                    <a href="Register" class="menu">register</a> to interact with posts.</p>
+            </c:otherwise>
+        </c:choose>
 </div>
 
 </div>

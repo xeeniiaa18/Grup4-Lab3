@@ -62,7 +62,7 @@
                         👥 Manage users
                     </div>
                 </a>
-                <a href="ManagePosts" class="menu" style="text-decoration:none;">
+                <a href="Feed" class="menu" style="text-decoration:none;">
                     <div style="background:#fafafa; border:1.5px solid #f0e8df; border-radius:12px; padding:12px 18px; color:var(--muted); font-size:14px; font-weight:500;">
                         🗑️ Moderate posts
                     </div>
