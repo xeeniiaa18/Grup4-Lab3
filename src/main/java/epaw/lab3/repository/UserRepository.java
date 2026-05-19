@@ -130,7 +130,7 @@ public class UserRepository extends BaseRepository {
             statement.setString(4, user.getAllergies());
             statement.setString(5, user.getFoodPreferences());
             statement.setString(6, user.getTitle());
-            statement.setString(7, user.getUsername());
+            statement.setInt(7, user.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

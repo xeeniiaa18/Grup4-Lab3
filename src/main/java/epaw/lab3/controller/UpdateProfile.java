@@ -1,6 +1,7 @@
 package epaw.lab3.controller;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import epaw.lab3.service.UserService;
 
 import java.io.IOException;
 
+@MultipartConfig
 @WebServlet("/UpdateProfile")
 public class UpdateProfile extends HttpServlet {
 
